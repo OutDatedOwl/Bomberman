@@ -18,6 +18,7 @@ TagManager:
   - Bomb_Left
   - Target_Left
   - Target_Right
+  - Bomb_Right
   layers:
   - Default
   - TransparentFX

@@ -39,7 +39,7 @@ public class BombToss : MonoBehaviour
         {
             if (canThrowBomb) // Checking if the current thrown bomb has been destroyed, if so then create new bomb to throw
             {
-                bombThow = Instantiate(bombPrefab, hands.position, Quaternion.Euler(-90, 0, 0));
+                bombThow = Instantiate(bombPrefab, hands.position, Quaternion.Euler(0, 0, 0));
                 startTimer = true;
                 canThrowBomb = false;                
             }
@@ -55,8 +55,8 @@ public class BombToss : MonoBehaviour
         {
             if (canThrowTripleBomb && bombTimeCounter >= 3f)
             {
-                bombThow = Instantiate(bombLeftPrefab, hands.position, Quaternion.Euler(-90, 0, 0));
-                bombThow = Instantiate(bombRightPrefab, hands.position, Quaternion.Euler(-90, 0, 0));
+                bombThow = Instantiate(bombLeftPrefab, hands.position, Quaternion.Euler(0, 0, 0));
+                bombThow = Instantiate(bombRightPrefab, hands.position, Quaternion.Euler(0, 0, 0));
                 canThrowTripleBomb = false; 
             }
             tripleBombGone = false;
@@ -71,7 +71,7 @@ public class BombToss : MonoBehaviour
             {
                 if (canKickBomb) // Checking if the current bomb on ground has been destroyed, if so then create new bomb to kick
                 {
-                    bombFoot = Instantiate(bombFootPrefab, feet.position, Quaternion.Euler(-90, 0, 0));
+                    bombFoot = Instantiate(bombFootPrefab, feet.position, Quaternion.Euler(0, 0, 0));
                 }
             }
         }

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7069432906737593360}
   m_Layer: 0
   m_Name: bombThrowRightPrefab
-  m_TagString: Bomb
+  m_TagString: Bomb_Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
@@ -138,5 +138,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bomb: {fileID: 4201636555377275940}
   target: {fileID: 0}
-  h: 1.5
+  h: 1
   gravity: -18

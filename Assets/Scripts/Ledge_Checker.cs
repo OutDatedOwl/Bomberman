@@ -18,9 +18,9 @@ public class Ledge_Checker : MonoBehaviour
         if (Physics.Raycast(rayCastOut, rayCastOut, 1f))
         {
             Debug.Log("HIT");
-            player.testGrab = true;
-            edgeGrab = new Vector3(0, 0, 0);
-            player.controller.Move(edgeGrab * Time.deltaTime);
+            //player.testGrab = true;
+            //edgeGrab = new Vector3(0, 0, 0);
+            //player.controller.Move(edgeGrab * Time.deltaTime);
         }
         
     }

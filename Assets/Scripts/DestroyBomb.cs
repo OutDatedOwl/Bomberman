@@ -7,7 +7,7 @@ public class DestroyBomb : MonoBehaviour
     public GameObject explosionEffectPrefab; // Prefab of bomb
     private GameObject explosionEffect; // Clone of prefab so we don't destroy prefab
 
-    string[] bombTags = {"Bomb", "Bomb_Left"};
+    string[] bombTags = {"Bomb", "Bomb_Left", "Bomb_Right"};
 
     private void OnTriggerEnter(Collider other)
     {
