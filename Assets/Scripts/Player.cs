@@ -21,15 +21,7 @@ public class Player : MonoBehaviour
     private float inputH;
 
     bool launched = false;
-    bool gravitySet = true;
-    public bool GravitySet {
-        get {
-            return gravitySet;
-        }
-        set {
-            gravitySet = value;
-        }
-    }
+    public bool testGrab = false;
 
     private void Start()
     {
@@ -42,15 +34,14 @@ public class Player : MonoBehaviour
     {
         DoMove();
         AnimatePlayer();
-        if(gravitySet)
-            Gravity();
+        Gravity();
         Jump();
         if (launched)
         {
             launchVector = new Vector3(1, -0.02f, 0);
             controller.Move(launchVector * Time.deltaTime * 20); // CHANGE TO IF COLLIDE THEN STOP LAUNCH
         }
-        if (!launched)
+        if (!testGrab) // testing grab, switch back to launched after TESTGRAB
         {
             controller.Move(directionMove * Time.deltaTime);
         }
@@ -85,11 +76,11 @@ public class Player : MonoBehaviour
     {
         if (controller.isGrounded)
         {
-            directionMove.y = -0.5f;
+            directionMove.y = -0.5f; // To keep player grounded at all times by minor gravity
         }
         else
         {
-            directionMove.y += Physics.gravity.y * Time.deltaTime;
+            directionMove.y += Physics.gravity.y * Time.deltaTime; // Slowly apply physics as player leaves ground
         }
         Mathf.Clamp(directionMove.y, -10, 10);
     }
