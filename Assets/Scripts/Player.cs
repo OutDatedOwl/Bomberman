@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
 
     bool launched = false;
     public bool testGrab = false;
+    public bool bombMoveStop = false;
 
     private void Start()
     {
@@ -41,7 +42,7 @@ public class Player : MonoBehaviour
             launchVector = new Vector3(1, -0.02f, 0);
             controller.Move(launchVector * Time.deltaTime * 20); // CHANGE TO IF COLLIDE THEN STOP LAUNCH
         }
-        if (!testGrab) // testing grab, switch back to launched after TESTGRAB
+        if (!bombMoveStop) // testing grab, switch back to launched after TESTGRAB, lol also FIX LATER cause im making temp solutions....
         {
             controller.Move(directionMove * Time.deltaTime);
         }

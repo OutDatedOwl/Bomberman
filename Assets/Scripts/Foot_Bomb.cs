@@ -8,6 +8,7 @@ public class Foot_Bomb : MonoBehaviour
     Rigidbody body;
     public float pushPower;
     private CharacterController controller;
+    Player player;
 
     private bool kickedBombStopTime;
 
@@ -16,6 +17,7 @@ public class Foot_Bomb : MonoBehaviour
     private void Start()
     {
         controller = this.GetComponent<CharacterController>();
+        player = this.GetComponent<Player>();
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -35,13 +37,15 @@ public class Foot_Bomb : MonoBehaviour
         if (hit.collider.tag == "Bomb_Foot")
         {
             pushForce = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
+            body.velocity = pushForce * pushPower;
+            player.bombMoveStop = true;
             controller.enabled = false;
             waitKickTime = PlayKickAnimation(0.2f);
             StartCoroutine(waitKickTime);
             //pushForce = hit.controller.velocity.normalized * pushPower; // Hit bomb according to Player speed and public float of pushPower
             //pushForce = pushForce.normalized * pushPower;
         }
-        body.velocity = pushForce * pushPower;
+        //body.velocity = pushForce * pushPower;
         //body.AddForceAtPosition(pushForce, hit.point);
         //print(body.velocity.normalized);
     }
@@ -55,6 +59,7 @@ public class Foot_Bomb : MonoBehaviour
 
         yield return new WaitForSeconds(time);
         controller.enabled = true;
+        player.bombMoveStop = false;
         kickedBombStopTime = false;
     }
 }

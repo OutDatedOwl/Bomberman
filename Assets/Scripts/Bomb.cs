@@ -11,9 +11,11 @@ public class Bomb : MonoBehaviour
     // Position for holding bomb
     private GameObject holdBomb;
     private GameObject charController;
+    private GameObject playerController;
 
     bool bombLaunched;
     private CharacterController controller;
+    private Player player;
     private bool kickedBombStopTime;
     private IEnumerator waitKickTime;
 
@@ -27,7 +29,9 @@ public class Bomb : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Target");
         holdBomb = GameObject.FindGameObjectWithTag("Hands");
         charController = GameObject.FindGameObjectWithTag("Player");
+        playerController = GameObject.FindGameObjectWithTag("Player");
         controller = charController.GetComponent<CharacterController>();
+        player = playerController.GetComponent<Player>();
     }
 
     // FIX THE THROWNBOMB BOOLEAN, TRY TO CREATE SECOND BOMB IN SAME POSITION BUT THROW THAT INSTEAD OF ONE BEING HELD
@@ -52,6 +56,7 @@ public class Bomb : MonoBehaviour
             if (!bombLaunched)
             {
                 Launch();
+                player.bombMoveStop = true;
                 controller.enabled = false;
                 waitKickTime = PlayKickAnimation(0.2f);
                 StartCoroutine(waitKickTime);
@@ -91,6 +96,7 @@ public class Bomb : MonoBehaviour
         kickedBombStopTime = true;
 
         yield return new WaitForSeconds(time);
+        player.bombMoveStop = false;
         controller.enabled = true;
         kickedBombStopTime = false;
     }

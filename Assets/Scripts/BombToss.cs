@@ -22,24 +22,25 @@ public class BombToss : MonoBehaviour
 
     private bool startTimer = false;
 
-    List<GameObject> bombAllowance; // The amount of bombs Player is allowed to have on screen
+    public List<GameObject> bombAllowance; // The amount of bombs Player is allowed to have on screen
 
     float bombTimeCounter;
 
     private void Start()
     {
         bombAllowance = new List<GameObject>();
-        bombAllowance.Add(bombFoot); // Add one bomb to list for player, will increase with bomb power ups
+        //bombAllowance.Add(bombFoot); // Add one bomb to list for player, will increase with bomb power ups
     }
 
     void Update()
     {
+        //Debug.Log(bombAllowance.Count);
         // Cannot create when running diag to right FIX THIS
         if (Input.GetKeyDown(KeyCode.R))
         {
             if (canThrowBomb) // Checking if the current thrown bomb has been destroyed, if so then create new bomb to throw
             {
-                bombThow = Instantiate(bombPrefab, hands.position, Quaternion.Euler(0, 0, 0));
+                bombThow = Instantiate(bombPrefab, hands.position, this.transform.rotation);
                 startTimer = true;
                 canThrowBomb = false;                
             }
@@ -55,8 +56,8 @@ public class BombToss : MonoBehaviour
         {
             if (canThrowTripleBomb && bombTimeCounter >= 3f)
             {
-                bombThow = Instantiate(bombLeftPrefab, hands.position, Quaternion.Euler(0, 0, 0));
-                bombThow = Instantiate(bombRightPrefab, hands.position, Quaternion.Euler(0, 0, 0));
+                bombThow = Instantiate(bombLeftPrefab, hands.position, this.transform.rotation);
+                bombThow = Instantiate(bombRightPrefab, hands.position, this.transform.rotation);
                 canThrowTripleBomb = false; 
             }
             tripleBombGone = false;
@@ -67,12 +68,18 @@ public class BombToss : MonoBehaviour
         // Cannot create when running diag to left FIX THIS
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (bombAllowance.Count <= 1) // Number of bombs Player can have, will increase with power ups to allow more bombs
+            if (bombAllowance.Count <= 10) // Number of bombs Player can have, will increase with power ups to allow more bombs
             {
+                bombFoot = Instantiate(bombFootPrefab, feet.position, this.transform.rotation);
+                //Debug.Log(bombAllowance.Count);
+                /*
                 if (canKickBomb) // Checking if the current bomb on ground has been destroyed, if so then create new bomb to kick
                 {
-                    bombFoot = Instantiate(bombFootPrefab, feet.position, Quaternion.Euler(0, 0, 0));
+                    bombFoot = Instantiate(bombFootPrefab, feet.position, this.transform.rotation);
+                    //bombAllowance.Add(bombFoot);
+                    //Debug.Log(bombAllowance.Count);
                 }
+                */
             }
         }
     }

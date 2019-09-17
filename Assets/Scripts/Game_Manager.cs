@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Game_Manager : MonoBehaviour
 {
-    BombToss bombKicking; // Gameobject to find player Player
-    bool canKickBomb; // Are there bombs on screen? If true then can't create new bomb, if not then Player is allowed new bomb to kick
-    GameObject[] kickBomb; // Checking if bombs are on screen to allow Player to create new bomb to kick
+    //BombToss bombKicking; // Gameobject to find player Player
+    //bool canKickBomb; // Are there bombs on screen? If true then can't create new bomb, if not then Player is allowed new bomb to kick
+    //GameObject[] kickBomb; // Checking if bombs are on screen to allow Player to create new bomb to kick
     private int playerHP = 3; // Player HP
+
+    //List<GameObject> bombAllowance;
 
     public AudioClip chickenClip;
 
@@ -15,19 +17,20 @@ public class Game_Manager : MonoBehaviour
 
     private void Start()
     {
-        GameObject canKickBombs = GameObject.FindGameObjectWithTag("Player");
-        bombKicking = canKickBombs.GetComponent<BombToss>();
-        chickenSource.clip = chickenClip;
+        //GameObject canKickBombs = GameObject.FindGameObjectWithTag("Player");
+        //bombKicking = canKickBombs.GetComponent<BombToss>();
+        //chickenSource.clip = chickenClip;
     }
 
     private void Update()
     {
-        kickBomb = GameObject.FindGameObjectsWithTag("Bomb_Foot");
-        CheckForBombs();
+        //kickBomb = GameObject.FindGameObjectsWithTag("Bomb_Foot");
+        //CheckForBombs();
     }
 
     void CheckForBombs()
     {
+        /*
         if (kickBomb.Length == 0) // No bombs? Allow new bomb
         {
             canKickBomb = true;
@@ -37,7 +40,7 @@ public class Game_Manager : MonoBehaviour
             canKickBomb = false;
         }
         bombKicking.canKickBomb = canKickBomb; // Return boolean to BombToss script to allow Player to create new bomb or not
-
+        */
 
     }
 

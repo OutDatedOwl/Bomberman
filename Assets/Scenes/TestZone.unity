@@ -438,6 +438,7 @@ MonoBehaviour:
   jumpForce: 8
   anim: {fileID: 320417642}
   testGrab: 0
+  bombMoveStop: 0
 --- !u!114 &320417640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,6 +478,7 @@ MonoBehaviour:
   canKickBomb: 1
   canThrowTripleBomb: 1
   tripleBombGone: 1
+  bombAllowance: []
 --- !u!95 &320417642 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 9500000, guid: 8165a884c665ff54ca1a7b07a3c4f613,
@@ -1315,7 +1317,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1414361804}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c00b8b378bf32e48a43b95627313025, type: 3}
   m_Name: 

@@ -698,6 +698,8 @@ MonoBehaviour:
   speed: 9
   jumpForce: 8
   anim: {fileID: 320417642}
+  testGrab: 0
+  bombMoveStop: 0
 --- !u!114 &320417640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -723,13 +725,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59837ce5546be3e4c99a1ca911117e9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bombPrefab: {fileID: 4026284679788993851, guid: c5e7379bced202d4b9b72d85432e3462,
+  bombPrefab: {fileID: 5721960852336700770, guid: 64dad156d41a7334098590f673e07f2c,
     type: 3}
-  bombLeftPrefab: {fileID: 9047310488199773077, guid: fa93a546fba8efd4a93099267f964291,
+  bombLeftPrefab: {fileID: 143318420169896867, guid: af3c7bd2d2ee4e245a9fa397058bf640,
     type: 3}
-  bombRightPrefab: {fileID: 2158552337081161531, guid: 57bec16dfe2f37d4382b5e3a5f6d2b3a,
+  bombRightPrefab: {fileID: 8164820492701931340, guid: d1ae760c5a0686040a73c11819674084,
     type: 3}
-  bombFootPrefab: {fileID: 2625352895099245051, guid: baa3b7cd71b1bd447b80507435a54573,
+  bombFootPrefab: {fileID: 2265656654756535400, guid: 62b92810f0574fb4196f5169030e1126,
     type: 3}
   feet: {fileID: 1823485251}
   hands: {fileID: 242982067}
