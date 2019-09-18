@@ -9,6 +9,13 @@ public class BombTimer : MonoBehaviour
     public GameObject explosionEffectPrefab;
     private GameObject explosionEffect;
 
+    BombToss removeBombFromList;
+
+    private void Start()
+    {
+        removeBombFromList = FindObjectOfType<BombToss>();
+    }
+
     private void Update()
     {
         timeUntilBoom += Time.deltaTime;
@@ -16,6 +23,7 @@ public class BombTimer : MonoBehaviour
         {
             timeUntilBoom = 0;
             Destroy(this.gameObject);
+            removeBombFromList.bombAllowance.Remove(this.gameObject);
             explosionEffect = Instantiate(explosionEffectPrefab, this.transform.position, Quaternion.Euler(0, 0, 0));
             ParticleSystem parts = explosionEffect.GetComponent<ParticleSystem>();
             float totalDuration = parts.duration + parts.startLifetime;

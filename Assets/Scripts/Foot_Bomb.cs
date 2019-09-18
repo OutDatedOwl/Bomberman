@@ -38,7 +38,7 @@ public class Foot_Bomb : MonoBehaviour
         {
             pushForce = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
             body.velocity = pushForce * pushPower;
-            player.bombMoveStop = true;
+            player.stopControllerInput = true;
             controller.enabled = false;
             waitKickTime = PlayKickAnimation(0.2f);
             StartCoroutine(waitKickTime);
@@ -59,7 +59,7 @@ public class Foot_Bomb : MonoBehaviour
 
         yield return new WaitForSeconds(time);
         controller.enabled = true;
-        player.bombMoveStop = false;
+        player.stopControllerInput = false;
         kickedBombStopTime = false;
     }
 }

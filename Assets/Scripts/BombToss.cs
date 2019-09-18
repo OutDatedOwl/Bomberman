@@ -34,7 +34,6 @@ public class BombToss : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log(bombAllowance.Count);
         // Cannot create when running diag to right FIX THIS
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -70,8 +69,7 @@ public class BombToss : MonoBehaviour
         {
             if (bombAllowance.Count <= 10) // Number of bombs Player can have, will increase with power ups to allow more bombs
             {
-                bombFoot = Instantiate(bombFootPrefab, feet.position, this.transform.rotation);
-                //Debug.Log(bombAllowance.Count);
+                bombFoot = Instantiate(bombFootPrefab, feet.position, this.transform.rotation);                
                 /*
                 if (canKickBomb) // Checking if the current bomb on ground has been destroyed, if so then create new bomb to kick
                 {

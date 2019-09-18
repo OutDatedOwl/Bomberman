@@ -56,7 +56,7 @@ public class Bomb : MonoBehaviour
             if (!bombLaunched)
             {
                 Launch();
-                player.bombMoveStop = true;
+                player.stopControllerInput = true;
                 controller.enabled = false;
                 waitKickTime = PlayKickAnimation(0.2f);
                 StartCoroutine(waitKickTime);
@@ -96,7 +96,7 @@ public class Bomb : MonoBehaviour
         kickedBombStopTime = true;
 
         yield return new WaitForSeconds(time);
-        player.bombMoveStop = false;
+        player.stopControllerInput = false;
         controller.enabled = true;
         kickedBombStopTime = false;
     }

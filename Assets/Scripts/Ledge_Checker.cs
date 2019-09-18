@@ -5,25 +5,49 @@ using UnityEngine;
 public class Ledge_Checker : MonoBehaviour
 {
     public Vector3 rayCastOut;
+
+    bool hanging;
+
     Player player;
-    Vector3 edgeGrab;
+
+    int layer_mask;
+
+    public Transform targetPos;
+
+    RaycastHit hit;
 
     private void Start()
     {
         player = this.GetComponent<Player>();
+        layer_mask = LayerMask.GetMask("Environment");
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        if (Physics.Raycast(rayCastOut, rayCastOut, 1f))
+        if (!hanging)
         {
-            //Debug.Log("HIT");
-            //player.testGrab = true;
-            //edgeGrab = new Vector3(0, 0, 0);
-            //player.controller.Move(edgeGrab * Time.deltaTime);
+            if (Physics.Raycast(this.transform.position, this.transform.forward, out hit, 1f, layer_mask))
+            {
+                
+                hanging = true;
+                player.stopControllerInput = true;
+                player.controller.enabled = false;       
+            }
+        }
+        else
+        {
+            if (Input.anyKeyDown)
+            {
+                player.stopControllerInput = false;
+                player.controller.enabled = true;
+                transform.position = Vector3.MoveTowards(transform.position, targetPos.position, Time.deltaTime * 100f);
+                hanging = false;
+                Debug.Log("HIT");
+            }
         }
         
     }
+
 
     void OnDrawGizmosSelected()
     {

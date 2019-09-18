@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Newton_Bomb : MonoBehaviour
 {
-    Vector3 frontRay, backRay, direction;
+    Vector3 frontRay, backRay, rightRay, leftRay, direction;
     BombToss gameManager;
     Rigidbody body;
     Vector3 vFrom;
@@ -21,6 +21,21 @@ public class Newton_Bomb : MonoBehaviour
     {
         // Raycast for bomb behind this bomb, store back bomb velocity before collision
         if (Physics.Raycast(this.transform.position, -this.transform.forward, out hit, 1f) && hit.collider.tag == "Bomb_Foot")
+        {
+            vFrom = hit.collider.attachedRigidbody.velocity;
+        }
+
+        if (Physics.Raycast(this.transform.position, this.transform.forward, out hit, 1f) && hit.collider.tag == "Bomb_Foot")
+        {
+            vFrom = hit.collider.attachedRigidbody.velocity;
+        }
+
+        if (Physics.Raycast(this.transform.position, -this.transform.right, out hit, 1f) && hit.collider.tag == "Bomb_Foot")
+        {
+            vFrom = hit.collider.attachedRigidbody.velocity;
+        }
+
+        if (Physics.Raycast(this.transform.position, this.transform.right, out hit, 1f) && hit.collider.tag == "Bomb_Foot")
         {
             vFrom = hit.collider.attachedRigidbody.velocity;
         }
@@ -45,6 +60,16 @@ public class Newton_Bomb : MonoBehaviour
         Gizmos.color = Color.green;
         Vector3 directionBack = transform.TransformDirection(-Vector3.forward);
         Gizmos.DrawRay(frontRay, directionBack);
+
+        rightRay = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        Gizmos.color = Color.yellow;
+        Vector3 directionRight = transform.TransformDirection(Vector3.right);
+        Gizmos.DrawRay(rightRay, directionRight);
+
+        leftRay = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        Gizmos.color = Color.blue;
+        Vector3 directionLeft = transform.TransformDirection(-Vector3.right);
+        Gizmos.DrawRay(leftRay, directionLeft);
     }
 
 }
