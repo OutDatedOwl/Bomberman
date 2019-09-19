@@ -14,10 +14,9 @@ public class Bomb : MonoBehaviour
     private GameObject playerController;
 
     bool bombLaunched;
+
     private CharacterController controller;
     private Player player;
-    private bool kickedBombStopTime;
-    private IEnumerator waitKickTime;
 
     // Variables for bomb launch
     public float h;
@@ -37,7 +36,7 @@ public class Bomb : MonoBehaviour
     // FIX THE THROWNBOMB BOOLEAN, TRY TO CREATE SECOND BOMB IN SAME POSITION BUT THROW THAT INSTEAD OF ONE BEING HELD
     private void Update()
     {
-        if (bombLaunched && bomb == null)
+        if (bombLaunched && bomb == null) // When bomb is destroyed, can throw new bomb
         {
             bombLaunched = false;
         }
@@ -56,11 +55,12 @@ public class Bomb : MonoBehaviour
             if (!bombLaunched)
             {
                 Launch();
-                player.stopControllerInput = true;
-                controller.enabled = false;
-                waitKickTime = PlayKickAnimation(0.2f);
-                StartCoroutine(waitKickTime);
-            }
+                player.slowSpeedAfterThrow = true;
+                //player.stopControllerInput = true;
+                //controller.enabled = false;
+                //waitKickTime = PlayKickAnimation(0.2f);
+                //StartCoroutine(waitKickTime);
+            }  
             bombLaunched = true;
         }
     }
@@ -87,7 +87,7 @@ public class Bomb : MonoBehaviour
 
         return velocityXZ + velocityY * -Mathf.Sign(gravity);
     }
-
+    /*
     IEnumerator PlayKickAnimation(float time)
     {
         if (kickedBombStopTime)
@@ -96,9 +96,10 @@ public class Bomb : MonoBehaviour
         kickedBombStopTime = true;
 
         yield return new WaitForSeconds(time);
-        player.stopControllerInput = false;
-        controller.enabled = true;
+        player.speed += 5;
+        //player.stopControllerInput = false;
+        //controller.enabled = true;
         kickedBombStopTime = false;
     }
-
+    */
 }

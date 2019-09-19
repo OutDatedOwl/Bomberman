@@ -9,12 +9,16 @@ public class Newton_Bomb : MonoBehaviour
     Rigidbody body;
     Vector3 vFrom;
     RaycastHit hit;
+    Collider boxCollider;
+
+    bool outsideCollider = false;
 
     private void Start()
     {
         gameManager = FindObjectOfType<BombToss>();
         gameManager.bombAllowance.Add(this.gameObject);
         body = this.GetComponent<Rigidbody>();
+        boxCollider = this.GetComponent<Collider>();
     }
 
     private void Update()
@@ -46,6 +50,21 @@ public class Newton_Bomb : MonoBehaviour
         if (hit.collider.tag == "Bomb_Foot") // If object collided is a bomb then transfer velocity from back bomb to this bomb
         {
             body.velocity = vFrom;
+        }
+        if (!outsideCollider && hit.collider.tag == "Player")
+        {
+            //Physics.IgnoreCollision(hit.collider, boxCollider);
+            //boxCollider.isTrigger = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            Debug.Log("ANIME");
+            //outsideCollider = true;
+            //boxCollider.isTrigger = false;
         }
     }
 

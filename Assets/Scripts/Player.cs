@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     public float jumpForce; // How high Player jumps
     Quaternion rot; // Allow Player to rotate in which direction they face
 
+    float timer;
+
     Vector3 directionMove; // Input of X and Y axis
     Vector3 launchVector;
 
@@ -23,11 +25,11 @@ public class Player : MonoBehaviour
     bool launched = false;
     public bool testGrab = false;
     public bool stopControllerInput = false;
+    public bool slowSpeedAfterThrow;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
-
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -37,6 +39,7 @@ public class Player : MonoBehaviour
         AnimatePlayer();
         Gravity();
         Jump();
+        SlowSpeed();
         if (launched)
         {
             launchVector = new Vector3(1, -0.02f, 0);
@@ -91,6 +94,28 @@ public class Player : MonoBehaviour
         if (controller.isGrounded && Input.GetButtonDown("Jump"))
         {
             directionMove.y = jumpForce;
+        }
+    }
+
+    void SlowSpeed()
+    {
+        if (slowSpeedAfterThrow)
+        {
+            timer += Time.deltaTime;
+            if (timer <= 0.1f && speed >= 4f)
+            {
+                speed -= 1;
+            }
+            if (timer >= 0.2f)
+            {
+                speed += 1;
+            }
+            if (speed >= 9f)
+            {
+                speed = 9f;
+                timer = 0;
+                slowSpeedAfterThrow = false;
+            }
         }
     }
 
