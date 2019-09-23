@@ -19,6 +19,7 @@ public class BombToss : MonoBehaviour
     public bool canKickBomb = true; // Check to see if the bomb is below bomb allowance
     public bool canThrowTripleBomb = true;
     public bool tripleBombGone = true;
+    public bool insideCollider = false;
 
     private bool startTimer = false;
 
@@ -67,7 +68,7 @@ public class BombToss : MonoBehaviour
         // Cannot create when running diag to left FIX THIS
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (bombAllowance.Count <= 10) // Number of bombs Player can have, will increase with power ups to allow more bombs
+            if (bombAllowance.Count <= 100 && !insideCollider) // Number of bombs Player can have, will increase with power ups to allow more bombs
             {
                 bombFoot = Instantiate(bombFootPrefab, feet.position, this.transform.rotation);                
                 /*

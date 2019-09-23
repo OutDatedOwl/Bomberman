@@ -39,6 +39,7 @@ public class Ledge_Checker : MonoBehaviour
                 Debug.Log(hit.transform.localScale * ((BoxCollider)hit.collider).size.x);
                 Debug.Log(hit.transform.localScale * ((BoxCollider)hit.collider).size.y);
                 Debug.Log(hit.transform.localScale * ((BoxCollider)hit.collider).size.z);
+                FaceWall();
                 wallPoint = hit.point;
                 hanging = true;
                 player.stopControllerInput = true;
@@ -68,6 +69,13 @@ public class Ledge_Checker : MonoBehaviour
                 } 
             }
         }        
+    }
+
+    void FaceWall()
+    {
+        //Vector3 direction = transform.position - wallPoint;
+        //Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        //transform.LookAt(direction);
     }
 
     void MarkLandPoint()

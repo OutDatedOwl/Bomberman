@@ -10,8 +10,15 @@ public class Newton_Bomb : MonoBehaviour
     Vector3 vFrom;
     RaycastHit hit;
     Collider boxCollider;
+    CharacterController controller;
+    Player player;
+    GameObject playerController;
 
-    bool outsideCollider = false;
+    private IEnumerator waitKickTime;
+
+    private bool kickedBombStopTime;
+
+    public float pushPower;
 
     private void Start()
     {
@@ -19,6 +26,9 @@ public class Newton_Bomb : MonoBehaviour
         gameManager.bombAllowance.Add(this.gameObject);
         body = this.GetComponent<Rigidbody>();
         boxCollider = this.GetComponent<Collider>();
+        playerController = GameObject.FindGameObjectWithTag("Player");
+        controller = playerController.GetComponent<CharacterController>();
+        player = playerController.GetComponent<Player>();
     }
 
     private void Update()
@@ -51,20 +61,35 @@ public class Newton_Bomb : MonoBehaviour
         {
             body.velocity = vFrom;
         }
-        if (!outsideCollider && hit.collider.tag == "Player")
-        {
-            //Physics.IgnoreCollision(hit.collider, boxCollider);
-            //boxCollider.isTrigger = true;
-        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
         {
-            Debug.Log("ANIME");
-            //outsideCollider = true;
-            //boxCollider.isTrigger = false;
+            boxCollider.isTrigger = false;
+            gameManager.insideCollider = false;
+        }
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            gameManager.insideCollider = true;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            body.velocity = controller.transform.forward * pushPower;
+            player.stopControllerInput = true;
+            //controller.enabled = false;
+            waitKickTime = PlayKickAnimation(0.2f);
+            StartCoroutine(waitKickTime);
         }
     }
 
@@ -91,4 +116,16 @@ public class Newton_Bomb : MonoBehaviour
         Gizmos.DrawRay(leftRay, directionLeft);
     }
 
+    IEnumerator PlayKickAnimation(float time)
+    {
+        if (kickedBombStopTime)
+            yield break;
+
+        kickedBombStopTime = true;
+
+        yield return new WaitForSeconds(time);
+        //controller.enabled = true;
+        player.stopControllerInput = false;
+        kickedBombStopTime = false;
+    }
 }
