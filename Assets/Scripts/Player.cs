@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     Vector3 directionMove; // Input of X and Y axis
     Vector3 launchVector;
 
+    Ledge_Checker ledgeGrab;
+
     public Animator anim; // Animate Player
 
     private float inputV;
@@ -31,6 +33,7 @@ public class Player : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
+        ledgeGrab = this.GetComponent<Ledge_Checker>();
     }
 
     void Update()
@@ -60,7 +63,7 @@ public class Player : MonoBehaviour
         directionMove = directionMove.normalized * speed;
         directionMove.y = yStore;
 
-        if (directionMove != new Vector3(0, directionMove.y, 0)) // So Player doesn't snap back to Z axis
+        if (directionMove != new Vector3(0, directionMove.y, 0) && !ledgeGrab.hanging) // So Player doesn't snap back to Z axis
         {
             transform.eulerAngles = Vector3.up * Mathf.Atan2(directionMove.x, directionMove.z) * Mathf.Rad2Deg;
         }

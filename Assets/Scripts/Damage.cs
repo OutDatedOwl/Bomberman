@@ -14,12 +14,12 @@ public class Damage : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.tag == "Enemy")
+        if (collision.collider.tag == "Enemy") // If enemy hits player
         {
             game_Manager.HealthSystem(this.gameObject);
         }
 
-        if (collision.collider.tag == "Bomb_Foot")
+        if (collision.collider.tag == "Bomb_Foot") // If bomb hits enemy
         {
             game_Manager.HealthSystem(this.gameObject);
         }

@@ -10,6 +10,8 @@ public class Foot_Bomb : MonoBehaviour
     //private CharacterController controller;
     Player player;
 
+    public AudioSource[] audioArray;
+
     private bool kickedBombStopTime;
 
     private IEnumerator waitKickTime;
@@ -39,6 +41,7 @@ public class Foot_Bomb : MonoBehaviour
             pushForce = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
             body.velocity = pushForce * pushPower;
             player.stopControllerInput = true;
+            PlayKickBombSound();
             //controller.enabled = false;
             waitKickTime = PlayKickAnimation(0.2f);
             StartCoroutine(waitKickTime);
@@ -48,6 +51,12 @@ public class Foot_Bomb : MonoBehaviour
         //body.velocity = pushForce * pushPower;
         //body.AddForceAtPosition(pushForce, hit.point);
         //print(body.velocity.normalized);
+    }
+
+    void PlayKickBombSound()
+    {
+        AudioSource pickAudio = audioArray[Random.Range(0, 3)];
+        pickAudio.Play();
     }
 
     IEnumerator PlayKickAnimation(float time)
