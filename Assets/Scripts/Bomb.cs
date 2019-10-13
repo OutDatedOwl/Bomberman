@@ -16,7 +16,8 @@ public class Bomb : MonoBehaviour
     bool bombLaunched;
 
     private CharacterController controller;
-    private Player player;
+    //private Player player;
+    private textMoveChar player;
 
     // Variables for bomb launch
     public float h;
@@ -30,11 +31,11 @@ public class Bomb : MonoBehaviour
         charController = GameObject.FindGameObjectWithTag("Player");
         playerController = GameObject.FindGameObjectWithTag("Player");
         controller = charController.GetComponent<CharacterController>();
-        player = playerController.GetComponent<Player>();
+        player = playerController.GetComponent<textMoveChar>();
     }
 
     // FIX THE THROWNBOMB BOOLEAN, TRY TO CREATE SECOND BOMB IN SAME POSITION BUT THROW THAT INSTEAD OF ONE BEING HELD
-    private void Update()
+    private void LateUpdate()
     {
         if (bombLaunched && bomb == null) // When bomb is destroyed, can throw new bomb
         {

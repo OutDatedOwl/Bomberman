@@ -4,8 +4,8 @@ using System.Linq;
 public class DestroyBomb : MonoBehaviour
 {
     public float radius; // Radius of bomb explosion
-    public GameObject explosionEffectPrefab; // Prefab of bomb
-    private GameObject explosionEffect; // Clone of prefab so we don't destroy prefab
+    public GameObject explosionPrefab, smokePrefab, shockWavePrefab; // Prefab of bomb
+    private GameObject explosion, smoke, shockWave; // Clone of prefab so we don't destroy prefab
 
     string[] bombTags = {"Bomb", "Bomb_Left", "Bomb_Right"};
 
@@ -20,12 +20,15 @@ public class DestroyBomb : MonoBehaviour
 
             }
             */
-
             Destroy(other.gameObject);
-            explosionEffect = Instantiate(explosionEffectPrefab, other.transform.position, Quaternion.Euler(0, 0, 0));
-            ParticleSystem parts = explosionEffect.GetComponent<ParticleSystem>();
-            float totalDuration = parts.duration + parts.startLifetime;
-            Destroy(explosionEffect, totalDuration);
+            explosion = Instantiate(explosionPrefab, other.transform.position, Quaternion.Euler(0, 0, 0));
+            smoke = Instantiate(smokePrefab, other.transform.position, Quaternion.Euler(0, 0, 0));
+            shockWave = Instantiate(shockWavePrefab, other.transform.position, Quaternion.Euler(0, 0, 0));
+            //ParticleSystem parts = explosionEffect.GetComponent<ParticleSystem>();
+            //float totalDuration = parts.duration + parts.startLifetime;
+            Destroy(explosion, 1.5f);
+            Destroy(smoke, 1.5f);
+            Destroy(shockWave, 1.5f);
         }
     }
 }

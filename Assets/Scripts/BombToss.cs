@@ -15,10 +15,17 @@ public class BombToss : MonoBehaviour
     public Transform feet; // Used to spawn bomb by Player feet    
     public Transform hands; // Used to spawn bomb by Player hands
 
+    Animator anim;
+
+    [HideInInspector]
     public bool canThrowBomb = true; // Check to see if the bomb has been destroyed to create new bomb
+    [HideInInspector]
     public bool canKickBomb = true; // Check to see if the bomb is below bomb allowance
+    [HideInInspector]
     public bool canThrowTripleBomb = true;
+    [HideInInspector]
     public bool tripleBombGone = true;
+    [HideInInspector]
     public bool insideCollider = false;
 
     private bool startTimer = false;
@@ -30,6 +37,7 @@ public class BombToss : MonoBehaviour
     private void Start()
     {
         bombAllowance = new List<GameObject>();
+        anim = this.GetComponent<Animator>();
         //bombAllowance.Add(bombFoot); // Add one bomb to list for player, will increase with bomb power ups
     }
 
@@ -54,6 +62,7 @@ public class BombToss : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.R))
         {
+            //anim.SetBool("Throw_Bomb", true);
             if (canThrowTripleBomb && bombTimeCounter >= 3f)
             {
                 bombThow = Instantiate(bombLeftPrefab, hands.position, this.transform.rotation);

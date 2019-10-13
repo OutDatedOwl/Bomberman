@@ -11,16 +11,20 @@ public class Ledge_Checker : MonoBehaviour
 
     Collider collider;
 
+    Animator anim;
+
     [SerializeField]
     Transform hands;
 
+    [HideInInspector]
     public bool hanging;
 
     bool holding;
     bool climbing;
     bool landPointMarked;
 
-    Player player;
+    //Player player;
+    textMoveChar player;
     CharacterController controller;
 
     int layer_mask;
@@ -30,9 +34,10 @@ public class Ledge_Checker : MonoBehaviour
 
     private void Start()
     {
-        player = this.GetComponent<Player>();
+        player = this.GetComponent<textMoveChar>();
         controller = this.GetComponent<CharacterController>();
         layer_mask = LayerMask.GetMask("Environment");
+        anim = this.GetComponent<Animator>();
     }
 
     private void Update()
@@ -59,10 +64,12 @@ public class Ledge_Checker : MonoBehaviour
         {           
             if (Physics.Raycast(hands.position + dir * 1.5f, -Vector3.up, out hit, 1.7f, layer_mask)) // Casting ray down for plateau
             {
+                anim.SetBool("Hanging", true);
                 MarkLandPoint();
                 lerpDirection = new Vector3(transform.position.x, hit.point.y, transform.position.z) + transform.forward * 3/4;
                 if (Input.anyKeyDown)
                 {
+                    anim.SetBool("Climbing", true);
                     climbing = true;
                 }        
             }
@@ -71,6 +78,8 @@ public class Ledge_Checker : MonoBehaviour
                 transform.position = Vector3.Lerp(transform.position, lerpDirection, 3.5f * Time.deltaTime);
                 if (Vector3.Distance(transform.position, lerpDirection) <= 0.2f)
                 {
+                    anim.SetBool("Climbing", false);
+                    anim.SetBool("Hanging", false);
                     hanging = false;
                     climbing = false;
                     holding = false;

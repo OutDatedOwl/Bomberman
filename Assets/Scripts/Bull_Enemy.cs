@@ -47,7 +47,7 @@ public class Bull_Enemy : MonoBehaviour
                 PlayerPosFound(); // Player found set charge spot to player pos   
             }
             if (transform.position == chargeSpot)
-            {
+            { 
                 timer += Time.deltaTime;
                 if (timer >= 1f)
                 {

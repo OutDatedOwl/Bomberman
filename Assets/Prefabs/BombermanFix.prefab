@@ -260,8 +260,8 @@ MonoBehaviour:
   target: {fileID: 8858647903533893951}
   speed: 9
   jumpForce: 8
+  accel: 0
   anim: {fileID: 8858647903892907494}
-  testGrab: 0
   stopControllerInput: 0
   slowSpeedAfterThrow: 0
 --- !u!114 &8858647902562881710
@@ -277,6 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pushPower: 20
+  audioArray: []
 --- !u!114 &8858647902562881711
 MonoBehaviour:
   m_ObjectHideFlags: 0

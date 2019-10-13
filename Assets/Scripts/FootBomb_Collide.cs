@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class FootBomb_Collide : MonoBehaviour
 {
-    public GameObject explosionEffectPrefab;
-    private GameObject explosionEffect;
+    public GameObject explosionPrefab, smokePrefab, shockWavePrefab;
+    private GameObject explosion, smoke, shockWave;
     BombToss removeBombFromList;
 
     private void Start()
@@ -20,10 +20,14 @@ public class FootBomb_Collide : MonoBehaviour
             // NEED TO CALL TO BOMBTOSS AND DESTROY THE FIRST IN INDEX
             Destroy(this.gameObject);
             removeBombFromList.bombAllowance.Remove(this.gameObject);
-            explosionEffect = Instantiate(explosionEffectPrefab, this.transform.position, Quaternion.Euler(0, 0, 0));
-            ParticleSystem parts = explosionEffect.GetComponent<ParticleSystem>();
-            float totalDuration = parts.duration + parts.startLifetime;
-            Destroy(explosionEffect, totalDuration);
+            explosion = Instantiate(explosionPrefab, this.transform.position, Quaternion.Euler(0, 0, 0));
+            smoke = Instantiate(smokePrefab, this.transform.position, Quaternion.Euler(0, 0, 0));
+            shockWave = Instantiate(shockWavePrefab, this.transform.position, Quaternion.Euler(0, 0, 0));
+            //ParticleSystem parts = explosionEffect.GetComponent<ParticleSystem>();
+            //float totalDuration = parts.duration + parts.startLifetime;
+            Destroy(explosion, 1.5f);
+            Destroy(smoke, 1.5f);
+            Destroy(shockWave, 1.5f);
         }
     }
 }

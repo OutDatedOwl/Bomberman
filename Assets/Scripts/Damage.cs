@@ -19,7 +19,7 @@ public class Damage : MonoBehaviour
             game_Manager.HealthSystem(this.gameObject);
         }
 
-        if (collision.collider.tag == "Bomb_Foot") // If bomb hits enemy
+        if (collision.collider.tag == "Bomb_Foot" && transform.tag != "Player") // If kickbomb hits enemy and isn't player
         {
             game_Manager.HealthSystem(this.gameObject);
         }
@@ -27,7 +27,7 @@ public class Damage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Bomb")
+        if (other.tag == "Explosion")
         {
             game_Manager.HealthSystem(this.gameObject);
         }

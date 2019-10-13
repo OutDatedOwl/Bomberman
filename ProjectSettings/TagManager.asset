@@ -19,6 +19,7 @@ TagManager:
   - Target_Left
   - Target_Right
   - Bomb_Right
+  - Nitros
   layers:
   - Default
   - TransparentFX

@@ -8,9 +8,12 @@ public class Foot_Bomb : MonoBehaviour
     Rigidbody body;
     public float pushPower;
     //private CharacterController controller;
-    Player player;
+    //Player player;
+    textMoveChar player;
 
     public AudioSource[] audioArray;
+
+    public Animator anim;
 
     private bool kickedBombStopTime;
 
@@ -19,7 +22,7 @@ public class Foot_Bomb : MonoBehaviour
     private void Start()
     {
         //controller = this.GetComponent<CharacterController>();
-        player = this.GetComponent<Player>();
+        player = this.GetComponent<textMoveChar>();
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -41,6 +44,7 @@ public class Foot_Bomb : MonoBehaviour
             pushForce = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
             body.velocity = pushForce * pushPower;
             player.stopControllerInput = true;
+            anim.SetBool("Kick_Bomb", true);
             PlayKickBombSound();
             //controller.enabled = false;
             waitKickTime = PlayKickAnimation(0.2f);
@@ -55,8 +59,9 @@ public class Foot_Bomb : MonoBehaviour
 
     void PlayKickBombSound()
     {
-        AudioSource pickAudio = audioArray[Random.Range(0, 3)];
+        AudioSource pickAudio = audioArray[Random.Range(0, 3)]; 
         pickAudio.Play();
+        audioArray[3].Play();
     }
 
     IEnumerator PlayKickAnimation(float time)
@@ -68,6 +73,7 @@ public class Foot_Bomb : MonoBehaviour
 
         yield return new WaitForSeconds(time);
         //controller.enabled = true;
+        anim.SetBool("Kick_Bomb", false);
         player.stopControllerInput = false;
         kickedBombStopTime = false;
     }

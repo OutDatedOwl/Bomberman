@@ -11,10 +11,15 @@ public class Newton_Bomb : MonoBehaviour
     RaycastHit hit;
     Collider boxCollider;
     CharacterController controller;
-    Player player;
+    //Player player;
+    textMoveChar player;
     GameObject playerController;
 
+    public AudioSource[] audioArray;
+
     private IEnumerator waitKickTime;
+
+    Animator anim;
 
     private bool kickedBombStopTime;
 
@@ -28,7 +33,8 @@ public class Newton_Bomb : MonoBehaviour
         boxCollider = this.GetComponent<Collider>();
         playerController = GameObject.FindGameObjectWithTag("Player");
         controller = playerController.GetComponent<CharacterController>();
-        player = playerController.GetComponent<Player>();
+        player = playerController.GetComponent<textMoveChar>();
+        anim = player.GetComponent<Animator>();
     }
 
     private void Update()
@@ -59,6 +65,7 @@ public class Newton_Bomb : MonoBehaviour
     {
         if (hit.collider.tag == "Bomb_Foot") // If object collided is a bomb then transfer velocity from back bomb to this bomb
         {
+            audioArray[3].Play();
             body.velocity = vFrom;
         }
     }
@@ -85,12 +92,21 @@ public class Newton_Bomb : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            PlayKickBombSound();
             body.velocity = controller.transform.forward * pushPower;
             player.stopControllerInput = true;
             //controller.enabled = false;
+            anim.SetBool("Kick_Bomb", true);
             waitKickTime = PlayKickAnimation(0.2f);
             StartCoroutine(waitKickTime);
         }
+    }
+
+    void PlayKickBombSound()
+    {
+        AudioSource pickAudio = audioArray[Random.Range(0, 3)];
+        pickAudio.Play();
+        audioArray[3].Play();
     }
 
     void OnDrawGizmosSelected()
@@ -125,6 +141,7 @@ public class Newton_Bomb : MonoBehaviour
 
         yield return new WaitForSeconds(time);
         //controller.enabled = true;
+        anim.SetBool("Kick_Bomb", false);
         player.stopControllerInput = false;
         kickedBombStopTime = false;
     }
