@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Nitros_Cast : MonoBehaviour
+public class Nitros_Cast_1 : MonoBehaviour
 {
     public GameObject cast_Diamond;
     Nitros_Find nitros_Movement;

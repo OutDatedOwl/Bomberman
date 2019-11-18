@@ -6,9 +6,8 @@ public class Nitros_Find : MonoBehaviour
 {
     Nitros_Find_Ticker nitros_Find_Ticker;
 
-    public float greenSize;
-    public float speedRun;
-
+    public float greenSize, speedRun;
+    [HideInInspector]
     public float distance;
 
     private float timer;
@@ -16,9 +15,10 @@ public class Nitros_Find : MonoBehaviour
     public Transform player;
 
     public Vector3 chargeSpot;
+    Vector3 direction, set_Direction;
 
     private bool playerFound;
-    public bool insideSlideZone = false;
+    public bool insideSlideZone = false, hitCastBlock = false;
 
     private void Start()
     {
@@ -102,7 +102,10 @@ public class Nitros_Find : MonoBehaviour
 
     public void Charge()
     {
-        transform.position = Vector3.MoveTowards(transform.position, chargeSpot, Time.deltaTime * speedRun);
+        if (!hitCastBlock)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, chargeSpot, Time.deltaTime * speedRun);
+        }
     }
 
     private void OnDrawGizmosSelected()

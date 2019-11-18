@@ -6,29 +6,24 @@ public class Cube_Test : MonoBehaviour
 {
     public int tileSizeX, tileSizeY;
     public float padding;
-    public GameObject castPrefab, boundry;
+    public GameObject castPrefab, boundry, game_Manager;
+    public Vector3 cast_Box_Pos;
     BoxCollider boxCollide;
     Renderer cube_Renderer;
-    GameObject obj, cast, leftCrystal, rightCrystal, forwardCrystal, backCrystal;
-    //bool outOfBoundsMaxX, outOfBoundsMaxZ, outOfBoundsMinX, outOfBoundsMinZ;
-    //List<string> cube_Pos;
+    GameObject obj, cast;
+    Nitros_Spell_Checker nitros_Spell_Check;
 
     void Start()
     {
-        //cube_Pos = new List<string>();
-        //Instantiate(boundry, new Vector3(-2f, 0, -2f), Quaternion.identity);
         boxCollide = boundry.GetComponent<BoxCollider>();
         for (int i = 0; i < tileSizeX; i++)
         {
             for (int j = 0; j < tileSizeY; j++)
             {
                 if ((i == tileSizeX / 2 - 1 && j == tileSizeY / 2) || (i == tileSizeX / 2 && j == tileSizeY / 2 + 1))
-                {
-                    //obj = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-                    //obj.AddComponent<>();    
+                { 
                     cast = Instantiate(castPrefab, obj.transform.position + Vector3.up, Quaternion.identity);
                     obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    //cast = Instantiate(castPrefab, obj.transform.position + Vector3.up, Quaternion.identity);
                 }
                 else if ((i == 0 && j == 0) || (i == tileSizeX - 1 && j == 0)
                     || (i == 0 && j == tileSizeY - 1) || (i == tileSizeX - 1 && j == tileSizeY - 1))
@@ -50,9 +45,10 @@ public class Cube_Test : MonoBehaviour
                 {
                     cube_Renderer.material.color = Color.blue;
                 }
-                //print(cube_Pos[i] + "," + cube_Pos[j]);
+                obj.transform.SetParent(this.transform);
             }  
         }
+        Instantiate(game_Manager, Vector3.zero, Quaternion.identity); 
     }
 
     void Add_Cube_List(int cubeRow, int cubeColumn)
@@ -67,30 +63,22 @@ public class Cube_Test : MonoBehaviour
 
     public void VerticalShoot(Vector3 cast_Position, GameObject cast_FBX)
     {
+        cast_Box_Pos = cast_Position;
+
         Instantiate(cast_FBX, cast_Position + Vector3.right * padding,
        Quaternion.identity);
+        nitros_Spell_Check = cast_FBX.GetComponent<Nitros_Spell_Checker>();
 
-        /*
-        rightCrystal = Instantiate(cast_FBX, cast_Position + Vector3.right * padding,
-       Quaternion.Euler(-141.888f, -2.924988f, -45f));
-        
-        if (rightCrystal.transform.position == cast_Position + Vector3.up)
-        {
-            rightCrystal = Instantiate(cast_FBX, cast_Position + Vector3.right * padding,
-       Quaternion.Euler(-141.888f, -2.924988f, -45f));
+        Instantiate(cast_FBX, cast_Position + Vector3.left * padding,
+        Quaternion.identity);
+        nitros_Spell_Check = cast_FBX.GetComponent<Nitros_Spell_Checker>();
 
-            rightCrystal.transform.position = Vector3.Lerp(rightCrystal.transform.position, Vector3.up, 3f * Time.deltaTime);
-        }
-        
-        if (!outOfBoundsMaxX)
-        {
-            rightCrystal = Instantiate(cast_FBX, cast_Position + Vector3.up + Vector3.right * padding,
-       Quaternion.Euler(-141.888f, -2.924988f, -45f));
-        }
-        
-        if (rightCrystal.transform.position.x >= boxCollide.bounds.max.x - padding)
-        {
-            outOfBoundsMaxX = true;
-        } */
+        Instantiate(cast_FBX, cast_Position + Vector3.forward * padding,
+       Quaternion.identity);
+       nitros_Spell_Check = cast_FBX.GetComponent<Nitros_Spell_Checker>();
+
+        Instantiate(cast_FBX, cast_Position + Vector3.back * padding,
+        Quaternion.identity);
+        nitros_Spell_Check = cast_FBX.GetComponent<Nitros_Spell_Checker>();
     }
 }

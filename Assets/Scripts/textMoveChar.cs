@@ -5,6 +5,8 @@ using UnityEngine;
 public class textMoveChar : MonoBehaviour
 {
     public CharacterController controller; // Player controller
+    public Transform camera_Direction, feet;
+    //public GameObject running_Dust_Particles_Prefab;
 
     public float speed; // Speed of Player
     public float jumpForce; // How high Player jumps
@@ -21,6 +23,8 @@ public class textMoveChar : MonoBehaviour
     private float inputV;
     private float inputH;
 
+    //private GameObject running_Dust_Particles;
+
     [HideInInspector]
     public bool stopControllerInput = false;
     [HideInInspector]
@@ -32,6 +36,8 @@ public class textMoveChar : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
+        //running_Dust_Particles = Instantiate(running_Dust_Particles_Prefab, feet.transform.position + Vector3.back, Quaternion.identity);
+        //running_Dust_Particles.transform.SetParent(feet.transform);
     }
 
     // Update is called once per frame
@@ -51,7 +57,8 @@ public class textMoveChar : MonoBehaviour
 
     public void DoMove()
     {
-        directionMove = new Vector3(Input.GetAxis("Horizontal") * speed, 0, Input.GetAxis("Vertical") * speed);
+        directionMove = (camera_Direction.right * Input.GetAxis("Horizontal")) + (camera_Direction.forward * Input.GetAxis("Vertical")); 
+        //new Vector3(Input.GetAxis("Horizontal") * speed, 0, Input.GetAxis("Vertical") * speed);
         directionMove = Vector3.ClampMagnitude(directionMove, 1);
 
         //float yStore = directionMove.y;
